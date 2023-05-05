@@ -24,9 +24,6 @@ def making_children(list_of_parents, type_of_selection, k, pc, pm):
     return children
 
 def tournament_selection(p_chrs, k):
-    # using the tournament preceture for selecting a couple tree
-    # in this method we choose 3 tree randomly 2 times (2 times becuase we want a couple), and select the best-mae tree
-    
     couple_parent = []
     
     for j in range(2):
@@ -42,8 +39,6 @@ def tournament_selection(p_chrs, k):
     return couple_parent[0], couple_parent[1]       
         
 def roulette_wheel_selection(p_chrs):
-    # how much the mae is smaller the probbility of choosing it increases
-    
     couple_parent = []
     
     for i in range(2):

@@ -39,9 +39,7 @@ def all_chromosoms(population_size):
         chromosoms.append(chr)
     return chromosoms
 
-def _mse(chr_list, X, actual_Y):
-    # calculating the average-mae and best-mae for all of our trees and given inputs and outputs
-    
+def _mse(chr_list, X, actual_Y):    
     sum_mse = 0
     best_mse = float('inf')
     best_chr = None
