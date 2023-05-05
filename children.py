@@ -70,129 +70,33 @@ def cross_over_one_point(parent1, parent2, pc):
     
     x = rnd.random()
     if(x<=pc):
-        
-        # making the child nodes for changing nodes        
-        child1 = copy.deepcopy(parent1)
-        child2 = copy.deepcopy(parent2)        
-        
-        choosed_term = rnd.randint(1, 9)
-                
-        replace_terms(child1, child2, choosed_term)
-
+        choosed_term = rnd.randint(2, terms)                
+        child1, child2 = replace_terms(parent1, parent2, choosed_term)
         return child1, child2    
     else:
         return parent1, parent2
 
-def replace_terms(child1, child2, choosed_term):
+def replace_terms(paren1, paren2, choosed_term):
     
-    
-    
-    
-    
-    # change the specific node1 in tree1 with the specific node2 in tree2 with each other
-    #       and making new trees as children
-    
-    queue1 = []
-    queue1.append(child_root1)
-    
-    # making a cope of node1, because we will lose it after we change it with node2
-    cn1 = copy.deepcopy(choosed_node1)
-    
-    # searching in tree1 untill we find our specific node, and changing it with node2
-    flag1 = True
-    while flag1:
-        node = queue1.pop()
-        if(node!=choosed_node1):
-            for i in range(len(node.children)):
-                queue1.append(node.children[i])
-        else:
-            node.depth = choosed_node2.depth
-            node.operator = choosed_node2.operator
-            node.children = copy.deepcopy(choosed_node2.children)
-            node.is_leaf = choosed_node2.is_leaf
-            flag1 = False
-            
-    queue2 = []
-    queue2.append(child_root2)
-         
-    # searching in tree2 untill we find our specific node, and changing it with node1 (cn1)  
-    flag2 = True
-    while flag2:
-        node = queue2.pop()
-        if(node!=choosed_node2):
-            for j in range(len(node.children)):
-                queue2.append(node.children[j])
-        else:
-            node.depth = cn1.depth
-            node.operator = cn1.operator
-            node.children = copy.deepcopy(cn1.children)
-            node.is_leaf = cn1.is_leaf
-            flag2 = False          
-        
+    each_term = chr.coeff + chr.power
 
-        
-def change_node(root, choosed_node):
-
-    queue = []
-    queue.append(root)
-        
-    # searching in tree1 untill we find our specific node, and changing it with node2
-    flag = True
-    while flag:
-        node = queue.pop()
-        if(node!=choosed_node):
-            for i in range(len(node.children)):
-                queue.append(node.children[i])
-        else:
-            d = node.depth
-            t = tree.Tree(d)
-            t._fit()
-            node.depth = t.root.depth
-            node.operator = t.root.operator
-            node.children = t.root.children
-            node.is_leaf = t.root.is_leaf
-            flag = False
-          
-def subtree_mutation(children, pm):
+    child1 = []
+    child2 = []
     
+    x = (choosed_term-1) * each_term
+        
+    child1.extend(paren1[:x])
+    child1.extend(paren2[x:])
+        
+    child2.extend(paren2[:x])
+    child2.extend(paren1[x:])
+    
+    return child1, child2        
+
+def mutation(children, pm):
     for child in children:
-        x = rnd.random()
-        if(x<=pm):
-
-            nodes = []
-            make_list_node(child.root, nodes)
-            
-            # choosing a node to change
-            choosed_node = rnd.choice(nodes)
-            
-            change_node(child.root, choosed_node)
-            
-            # child.print_tree()
-         
-def make_list_node_leaf(root, leaf_nodes):
-    # making a list of leaf nodes in our tree
-    
-    if(root.is_leaf==True):
-        leaf_nodes.append(root)
-
-    if(len(root.children)!=0):
-        for i in root.children:
-            make_list_node(i, leaf_nodes)
-                
-    return leaf_nodes
-
-def leaf_mutation(children, pm):
-    for child in children:
-        x = rnd.random()
-        if(x<=pm):
-
-            leaf_nodes = []
-            make_list_node_leaf(child.root, leaf_nodes)
-            
-            # choosing a node to change
-            choosed_node = rnd.choice(leaf_nodes)
-            
-            change_node(child.root, choosed_node)
-            
-            # child.print_tree()        
-          
+        for bit in child:
+            x = rnd.random()
+            if(x<=pm):
+                if(bit==0): bit=1
+                else: bit=0

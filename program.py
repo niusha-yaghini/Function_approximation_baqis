@@ -67,31 +67,29 @@ def Genetic(input_file_name):
     best_mse_of_all.append(min_mse)
     best_chromosome.append(best_parent)
 
-
-
     for i in range(amount_of_generations):
         
-        if(Termination_condition(y_min_mae)):
-            return
+        # if(Termination_condition(y_min_mae)):
+        #     return
     
         print(f"population number {i+1}")
         list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm)
         
-        
-        average_mae, best_mae, best_tree = tree.calculating_mae(list_of_children, X, Y)
+        average_mse, best_mse, best_chr = Chromosome._mse(list_of_children, X, Y)
         list_of_parents = list_of_children
         
-        x_generation_number.append(i)
-        y_best_tree.append(best_tree)
-        y_best_mae_of_each.append(best_mae)
-        y_min_mae = min(y_best_mae_of_each)
-        print("best mae so far: ", y_min_mae)
-        y_best_mae_of_all.append(y_min_mae)
-        y_average_mae_of_each.append(average_mae)
+        
+        generation_number.append(i)
+        average_mse_of_eachGen.append(average_mse)
+        best_mse_of_eachGen.append(best_mse)
+        min_mse = min(best_mse_of_eachGen)
+        print("best mae so far: ", min_mse)
+        best_mse_of_all.append(min_mse)
+        best_chromosome.append(best_chr)
 
-    final_best_tree = None
-    for i in y_best_tree:
-        if i.mae==y_min_mae:
+    final_best_chr = None
+    for c in best_chromosome:
+        if c.mse==min_mse:
             final_best_tree = i
 
     final_best_tree_in_order = tree.to_math_string(final_best_tree.root)            
