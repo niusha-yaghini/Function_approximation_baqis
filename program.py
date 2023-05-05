@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import children    
 import print_function
 import random as rnd
+import time
+
 
 
 def draw_average_mse(x_generation_number, y_average_mse_of_each, given_function):
@@ -73,7 +75,7 @@ def Genetic(input_file_name):
             return
     
         print(f"population number {i+1}")
-        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm)
+        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2)
         
         average_mse, best_mse, best_chr = Chromosome._mse(list_of_children, X, Y)
         list_of_parents = list_of_children
@@ -139,7 +141,9 @@ def Genetic_to_compare(input_file_name):
         if(amount_of_no_change>=no_change_limit):
             break
     
-        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm)
+        print(f"population number {i+1}")
+
+        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2)
         
         average_mse, best_mse, best_chr = Chromosome._mse(list_of_children, X, Y)
         list_of_parents = list_of_children
@@ -178,7 +182,8 @@ if __name__ == "__main__":
 
     k = 3 # k tournoment parameter
     pc = 0.8 # the probblity of cross-over
-    pm = 0.02 # the probblity of mutation(leaf_mutation)
+    pm1 = 0.02 # the probblity of mutation for low value
+    pm2 = 0.01 # the probblity of mutation for high value
 
     amount_of_generations = 200
     
@@ -194,8 +199,13 @@ if __name__ == "__main__":
     
     iteration = 30
 
-    result = open('result4.txt', 'w')
+    result = open('result5.txt', 'w')
+    result.write(f"mutation with different values\n")        
 
+
+    # get the start time
+    st = time.time()
+    
     best_mses = []
     sum = 0
     for i in range(iteration):
@@ -207,13 +217,21 @@ if __name__ == "__main__":
         result.write(f"iteration number {i}: ")        
         result.write(f"mse = {mse}, generation nums = {gen_num} \n")
         
+    # get the end time
+    et = time.time()
+    # get the execution time
+
     all_min = min(best_mses)
     avg = sum/iteration
     result.write(f"the best mse of all: {all_min} \n")
     result.write(f"the average mse of all: {avg} \n")
-    
+    # result.write('Execution time:', elapsed_time, 'seconds')
+
     result.close()
     
+    elapsed_time = et - st
+    print('Execution time:', elapsed_time, 'seconds')
+
     # for now the new generation is the children
 
     print()

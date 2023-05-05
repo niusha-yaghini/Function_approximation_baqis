@@ -1,0 +1,33 @@
+mutation with different values
+iteration number 0: mse = 3.106920877572049, generation nums = 125 
+iteration number 1: mse = 11.167071372509536, generation nums = 118 
+iteration number 2: mse = 10.050430309080795, generation nums = 89 
+iteration number 3: mse = 5.53476322875006, generation nums = 84 
+iteration number 4: mse = 3.244178208179216, generation nums = 147 
+iteration number 5: mse = 2.363155297319444, generation nums = 199 
+iteration number 6: mse = 7.8899565344661395, generation nums = 90 
+iteration number 7: mse = 3.059436562346158, generation nums = 95 
+iteration number 8: mse = 7.823279630166736, generation nums = 136 
+iteration number 9: mse = 5.581860265025984, generation nums = 132 
+iteration number 10: mse = 12.676527674255212, generation nums = 99 
+iteration number 11: mse = 1.1245872594179358, generation nums = 135 
+iteration number 12: mse = 7.469200608722203, generation nums = 193 
+iteration number 13: mse = 11.764679328037067, generation nums = 78 
+iteration number 14: mse = 3.2476082854967365, generation nums = 111 
+iteration number 15: mse = 0.8935980818626359, generation nums = 144 
+iteration number 16: mse = 2.1629121711414383, generation nums = 199 
+iteration number 17: mse = 4.276108855978134, generation nums = 63 
+iteration number 18: mse = 4.747151868784988, generation nums = 139 
+iteration number 19: mse = 2.6792178313000936, generation nums = 185 
+iteration number 20: mse = 1.4356217512660137, generation nums = 199 
+iteration number 21: mse = 2.6357948777598432, generation nums = 118 
+iteration number 22: mse = 4.699188065013739, generation nums = 86 
+iteration number 23: mse = 17.330257934369204, generation nums = 79 
+iteration number 24: mse = 9.613874974763588, generation nums = 81 
+iteration number 25: mse = 0.8128271618081654, generation nums = 171 
+iteration number 26: mse = 3.446422130198111, generation nums = 124 
+iteration number 27: mse = 2.723192411665542, generation nums = 146 
+iteration number 28: mse = 8.381006670951427, generation nums = 53 
+iteration number 29: mse = 13.651579820538288, generation nums = 80 
+the best mse of all: 0.8128271618081654 
+the average mse of all: 5.853080334958215 

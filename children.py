@@ -2,7 +2,7 @@ import copy
 import random as rnd
 import Chromosome
 
-def making_children(list_of_parents, type_of_selection, k, pc, pm):
+def making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2):
     # we want to make children on base of a list of trees (parent_trees)
     
     lenght = len(list_of_parents)
@@ -19,7 +19,7 @@ def making_children(list_of_parents, type_of_selection, k, pc, pm):
         children.append(child1)
         children.append(child2)
     
-    mutation(children, pm)
+    mutation_different_value(children, pm1, pm2)
     
     return children
 
@@ -93,6 +93,47 @@ def replace_terms(paren1, paren2, choosed_term):
     child2.chr = chr2
     
     return child1, child2        
+
+def mutation_different_value(children, pm1, pm2):
+    # x = (choosed_term-1) * each_term
+    term = 9
+    coeff = 10
+    co1 = 5
+    co2 = 5
+    power = 5
+    po1 = 2
+    po2 = 3
+    for child in children:
+        for t in range(term):
+            x = t*(coeff+power)
+            #coeff
+            for i in range(x, co1+x):
+                r = rnd.random()
+                if(r<=pm2):
+                    if(child.chr[i]==0): child.chr[i]=1
+                    else: child.chr[i]=0
+            x += co1
+
+            for j in range(x, co2+x):
+                r = rnd.random()
+                if(r<=pm1):
+                    if(child.chr[j]==0): child.chr[j]=1
+                    else: bit=0
+            x += co2
+                
+            #power
+            for h in range(x, po1+x):
+                r = rnd.random()
+                if(r<=pm2):
+                    if(child.chr[h]==0): child.chr[h]=1
+                    else: child.chr[h]=0
+            x += po1
+
+            for z in range(x, po2+x):
+                r = rnd.random()
+                if(r<=pm1):
+                    if(child.chr[z]==0): child.chr[z]=1
+                    else: child.chr[z]=0
 
 def mutation(children, pm):
     for child in children:
