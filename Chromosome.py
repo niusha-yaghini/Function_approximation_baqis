@@ -26,7 +26,7 @@ class Chromosome:
                 y = rnd.randint(0, 1)
                 my_chr.append(y)
 
-        self.chr = my_chr                
+        return my_chr                
 
 def all_chromosoms(population_size):
     # making a list of all random chromosoms (generation 0)
@@ -34,6 +34,8 @@ def all_chromosoms(population_size):
     chromosoms = []
     for i in range(population_size):
         chr = Chromosome()
+        chr._fit()
+        # print(chr.chr)
         chromosoms.append(chr)
     return chromosoms
 
@@ -45,7 +47,8 @@ def _mse(chr_list, X, actual_Y):
     best_chr = None
     for c in chr_list:
         predicted_Y = calculator(X, c)
-        c.mse = mean_squared_error(actual_Y, predicted_Y)        
+        c.mse = mean_squared_error(actual_Y, predicted_Y)     
+        # print(c.mse)   
         sum_mse += c.mse
         if (c.mse<best_mse):
             best_mse = c.mse
@@ -59,26 +62,27 @@ def binatodeci(binary):
 def calculator(list_x, chr):
     # list of tuples (coeff, power)
     list_c_p = []
-    str = None
-    each_term = chr.coeff + chr.power
+    str = ''
+    each_term = chr.coeff_size + chr.power_size
     
     for term in range(chr.term_size):
         coeff = []
         co_spot = each_term*term
         for i in range(co_spot, co_spot+chr.coeff_size):
             coeff.append(chr.chr[i])
-        coeff_num = binatodeci(coeff)
+        coeff_num = (binatodeci(coeff)/10) - 50.4
             
         p_spot = co_spot+chr.coeff_size
         power = []
         for j in range(p_spot, p_spot+chr.power_size):
             power.append(chr.chr[j])
-        power_num = binatodeci(power)
+        power_num = (binatodeci(power)*0.25) - 4
         
         list_c_p.append((coeff_num, power_num))
         str += to_string(coeff_num, power_num)
     
     chr.str = str
+    # print(str)
 
     predicted_y = []
 
@@ -91,7 +95,6 @@ def calculator(list_x, chr):
         
     return predicted_y
 
-
 def to_string(coeff_num, power_num):
     str = ''
     if(coeff_num==0):
@@ -100,14 +103,14 @@ def to_string(coeff_num, power_num):
         str += f'+({coeff_num}'
     else:
         coeff_num *= (-1)
-        str += '-({coeff_num}'
+        str += f'-({coeff_num}'
     
     if(power_num==0):
         str+=')'
         return str
     elif(power_num>0):
-        str += f'x^{coeff_num}'
+        str += f'x^{power_num})'
     else:
-        str += 'x^{coeff_num})'
+        str += f'x^{power_num})'
     
     return str

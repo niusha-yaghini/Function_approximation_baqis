@@ -78,24 +78,30 @@ def cross_over_one_point(parent1, parent2, pc):
 
 def replace_terms(paren1, paren2, choosed_term):
     
-    each_term = chr.coeff + chr.power
+    each_term = paren1.coeff_size + paren1.power_size
 
-    child1 = []
-    child2 = []
+    child1 = Chromosome.Chromosome()
+    child2 = Chromosome.Chromosome()
+    
+    chr1 = []
+    chr2 = []
     
     x = (choosed_term-1) * each_term
         
-    child1.extend(paren1[:x])
-    child1.extend(paren2[x:])
+    chr1.extend(paren1.chr[:x])
+    chr1.extend(paren2.chr[x:])
         
-    child2.extend(paren2[:x])
-    child2.extend(paren1[x:])
+    chr2.extend(paren2.chr[:x])
+    chr2.extend(paren1.chr[x:])
+    
+    child1.chr = chr1
+    child2.chr = chr2
     
     return child1, child2        
 
 def mutation(children, pm):
     for child in children:
-        for bit in child:
+        for bit in child.chr:
             x = rnd.random()
             if(x<=pm):
                 if(bit==0): bit=1
