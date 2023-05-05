@@ -194,7 +194,7 @@ if __name__ == "__main__":
     
     iteration = 30
 
-    result = open('result6.txt', 'w')
+    result = open('result4.txt', 'w')
 
     best_mses = []
     sum = 0
