@@ -1,7 +1,7 @@
-import tree
+import Chromosome
 import matplotlib.pyplot as plt
 import children    
-import print_function
+# import print_function
 import random as rnd
 
 
@@ -47,25 +47,27 @@ def Genetic(input_file_name):
         
     # population number zero
     print("population number 0\n")
-    list_of_parents = tree.all_trees(population_size)
-    parents_average_mae, parents_best_mae, best_parent_tree = tree.calculating_mae(list_of_parents, X, Y)
+    list_of_parents = Chromosome.all_chromosoms(population_size)
+    parents_average_mse, parents_best_mse, best_parent = Chromosome._mse(list_of_parents, X, Y)
     
     # making lists for showing 
-    x_generation_number = []
-    y_average_mae_of_each = []
-    y_best_mae_of_each = []
-    y_best_mae_of_all = []
-    y_best_tree = []
-    y_min_mae = None
+    generation_number = []
+    average_mse_of_eachGen = []
+    best_mse_of_eachGen = []
+    best_mse_of_all = []
+    best_chromosome = []
+    min_mse = None
     
     # appending 0 generation information
-    x_generation_number.append(0)
-    y_average_mae_of_each.append(parents_average_mae)
-    y_best_mae_of_each.append(parents_best_mae)
-    y_min_mae = min(y_best_mae_of_each)
-    print("best mae so far: ", y_min_mae)
-    y_best_mae_of_all.append(parents_best_mae)
-    y_best_tree.append(best_parent_tree)
+    generation_number.append(0)
+    average_mse_of_eachGen.append(parents_average_mse)
+    best_mse_of_eachGen.append(parents_best_mse)
+    min_mse = parents_best_mse
+    print("best mae so far: ", min_mse)
+    best_mse_of_all.append(min_mse)
+    best_chromosome.append(best_parent)
+
+
 
     for i in range(amount_of_generations):
         
@@ -73,7 +75,9 @@ def Genetic(input_file_name):
             return
     
         print(f"population number {i+1}")
-        list_of_children = children.making_children(list_of_parents, k, pc, pm)
+        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm)
+        
+        
         average_mae, best_mae, best_tree = tree.calculating_mae(list_of_children, X, Y)
         list_of_parents = list_of_children
         
@@ -123,6 +127,9 @@ if __name__ == "__main__":
     children_percent_of_next_generation = 90
     
     input_file_name = 'in_out.txt'
+    
+    type_of_selection = "tournoment"
+    # type_of_selection = "roulette_wheel"
     
     Genetic(input_file_name)
 
