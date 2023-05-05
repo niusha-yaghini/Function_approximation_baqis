@@ -1,92 +1,32 @@
-iteration number 0: 
-mse = 1290.6888387565166, amount of no change = 90 
-
-iteration number 1:
-mse = 147.1871664743657, amount of no change = 94 
-
-iteration number 2: 
-mse = 150.87414704894155, amount of no change = 93 
-
-iteration number 3:
-mse = 448.8021032243649, amount of no change = 92 
-
-iteration number 4: 
-mse = 1097.3388752367257, amount of no change = 94 
-
-iteration number 5:
-mse = 1176.732432666899, amount of no change = 93 
-
-iteration number 6:
-mse = 1254.098921952787, amount of no change = 85 
-
-iteration number 7:
-mse = 2874.652539232937, amount of no change = 95 
-
-iteration number 8:
-mse = 6506.477305150091, amount of no change = 91 
-
-iteration number 9:
-mse = 4756.803960961316, amount of no change = 90 
-
-iteration number 10: 
-mse = 17386.97469341375, amount of no change = 95 
-
-iteration number 11: 
-mse = 39166.69841385, amount of no change = 95 
-
-iteration number 12:
-mse = 1329.2318501213422, amount of no change = 86 
-
-iteration number 13:
-mse = 2513.8009240749643, amount of no change = 86 
-
-iteration number 14: 
-mse = 641.1716793197329, amount of no change = 88 
-
-iteration number 15: 
-mse = 3597.7299352991436, amount of no change = 87 
-
-iteration number 16: 
-mse = 2388.0822014166924, amount of no change = 96 
-
-iteration number 17: 
-mse = 4096.675582756344, amount of no change = 93 
-
-iteration number 18:
-mse = 1564.0383830837663, amount of no change = 91 
-
-iteration number 19: 
-mse = 638.8518747767143, amount of no change = 90 
-
-iteration number 20:
-mse = 1174.677171898421, amount of no change = 94 
-
-iteration number 21:
-mse = 4021.618422546648, amount of no change = 84 
-
-iteration number 22:
-mse = 208.23834551569232, amount of no change = 95 
-
-iteration number 23:
-mse = 56.00068081752456, amount of no change = 88 
-
-iteration number 24:
-mse = 2238.815927367817, amount of no change = 89 
-
-iteration number 25:
-mse = 67.81313299303005, amount of no change = 88 
-
-iteration number 26:
-mse = 3239.38415243976, amount of no change = 87 
-
-iteration number 27:
-mse = 1199.2959046045453, amount of no change = 91
-
-iteration number 28:
-mse = 4709.970269590366, amount of no change = 95
-
-iteration number 29:
-mse = 76.50479029543104, amount of no change = 86
-
+iteration number 0: mse = 1290.6888387565166, amount of no change = 90 
+iteration number 1: mse = 147.1871664743657, amount of no change = 94 
+iteration number 2: mse = 150.87414704894155, amount of no change = 93 
+iteration number 3: mse = 448.8021032243649, amount of no change = 92 
+iteration number 4: mse = 1097.3388752367257, amount of no change = 94 
+iteration number 5: mse = 1176.732432666899, amount of no change = 93 
+iteration number 6: mse = 1254.098921952787, amount of no change = 85 
+iteration number 7: mse = 2874.652539232937, amount of no change = 95 
+iteration number 8: mse = 6506.477305150091, amount of no change = 91 
+iteration number 9: mse = 4756.803960961316, amount of no change = 90 
+iteration number 10: mse = 17386.97469341375, amount of no change = 95 
+iteration number 11: mse = 39166.69841385, amount of no change = 95 
+iteration number 12: mse = 1329.2318501213422, amount of no change = 86 
+iteration number 13: mse = 2513.8009240749643, amount of no change = 86 
+iteration number 14: mse = 641.1716793197329, amount of no change = 88 
+iteration number 15: mse = 3597.7299352991436, amount of no change = 87 
+iteration number 16: mse = 2388.0822014166924, amount of no change = 96 
+iteration number 17: mse = 4096.675582756344, amount of no change = 93 
+iteration number 18: mse = 1564.0383830837663, amount of no change = 91 
+iteration number 19: mse = 638.8518747767143, amount of no change = 90 
+iteration number 20: mse = 1174.677171898421, amount of no change = 94 
+iteration number 21: mse = 4021.618422546648, amount of no change = 84 
+iteration number 22: mse = 208.23834551569232, amount of no change = 95 
+iteration number 23: mse = 56.00068081752456, amount of no change = 88 
+iteration number 24: mse = 2238.815927367817, amount of no change = 89 
+iteration number 25: mse = 67.81313299303005, amount of no change = 88 
+iteration number 26: mse = 3239.38415243976, amount of no change = 87 
+iteration number 27: mse = 1199.2959046045453, amount of no change = 91
+iteration number 28: mse = 4709.970269590366, amount of no change = 95
+iteration number 29: mse = 76.50479029543104, amount of no change = 86
 the best mse of all: 56.00068081752456 
 the average mse of all: 3667.307687562887 

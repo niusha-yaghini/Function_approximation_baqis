@@ -136,7 +136,7 @@ def Genetic_to_compare(input_file_name):
         if(Termination_condition(min_mse)):
             break
         
-        if(amount_of_no_change>=20):
+        if(amount_of_no_change>=no_change_limit):
             break
     
         list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm)
@@ -172,15 +172,15 @@ if __name__ == "__main__":
     input_nodes_amount = 100
 
     # population size (0)
-    population_size = 100
+    population_size = 1000
     
     # coromosoms = 15 bits / 10 bits = coeffisient and 5 bits = power 
 
     k = 3 # k tournoment parameter
     pc = 0.8 # the probblity of cross-over
-    pm = 0.01 # the probblity of mutation(leaf_mutation)
+    pm = 0.02 # the probblity of mutation(leaf_mutation)
 
-    amount_of_generations = 100
+    amount_of_generations = 200
     
     parents_percent_of_next_generation = 10
     children_percent_of_next_generation = 90
@@ -190,9 +190,11 @@ if __name__ == "__main__":
     type_of_selection = "tournoment"
     # type_of_selection = "roulette_wheel"
     
+    no_change_limit = 40
+    
     iteration = 30
 
-    result = open('result2.txt', 'w')
+    result = open('result6.txt', 'w')
 
     best_mses = []
     sum = 0

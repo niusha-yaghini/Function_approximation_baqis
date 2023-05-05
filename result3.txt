@@ -1,0 +1,32 @@
+iteration number 0: mse = 251.786935625951, generation nums = 28 
+iteration number 1: mse = 1441.4346659781304, generation nums = 26 
+iteration number 2: mse = 3672.1294664742036, generation nums = 30 
+iteration number 3: mse = 917.9470283810394, generation nums = 32 
+iteration number 4: mse = 2407.9760166967258, generation nums = 37 
+iteration number 5: mse = 2455.358597588705, generation nums = 28 
+iteration number 6: mse = 292.713233824071, generation nums = 32 
+iteration number 7: mse = 7834.389011457027, generation nums = 26 
+iteration number 8: mse = 2758.077911517826, generation nums = 33 
+iteration number 9: mse = 502.9267314349896, generation nums = 25 
+iteration number 10: mse = 864.184831523932, generation nums = 26 
+iteration number 11: mse = 485.19665909687944, generation nums = 29 
+iteration number 12: mse = 26764.09976859516, generation nums = 32 
+iteration number 13: mse = 957.0111426525165, generation nums = 30 
+iteration number 14: mse = 1975.7590186608397, generation nums = 32 
+iteration number 15: mse = 321.30757276398805, generation nums = 28 
+iteration number 16: mse = 1611.1074660292156, generation nums = 30 
+iteration number 17: mse = 527.3431914897998, generation nums = 29 
+iteration number 18: mse = 7512.5880130598825, generation nums = 27 
+iteration number 19: mse = 177.0508362699012, generation nums = 28 
+iteration number 20: mse = 3023.6049573255186, generation nums = 26 
+iteration number 21: mse = 1895.9130757019605, generation nums = 30 
+iteration number 22: mse = 2118.495430559829, generation nums = 29 
+iteration number 23: mse = 2782.7670426705877, generation nums = 29 
+iteration number 24: mse = 69.38211107612136, generation nums = 30 
+iteration number 25: mse = 898.7647202365514, generation nums = 30 
+iteration number 26: mse = 4480.37990459991, generation nums = 36 
+iteration number 27: mse = 4210.519762260387, generation nums = 32 
+iteration number 28: mse = 121.83699285979347, generation nums = 34 
+iteration number 29: mse = 7829.603247249137, generation nums = 30 
+the best mse of all: 69.38211107612136 
+the average mse of all: 3038.7218447886858 
