@@ -201,8 +201,8 @@ if __name__ == "__main__":
     
     iteration = 30
 
-    result = open('result5.txt', 'w')
-    result.write(f"mutation with different values\n")        
+    result = open('result6.txt', 'a')
+    result.write(f"mutation with different values and keep doing the better one\n")        
 
 
     # get the start time

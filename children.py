@@ -2,7 +2,7 @@ import copy
 import random as rnd
 import Chromosome
 
-def making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2, list_x, actual_y):
+def making_children_keep(list_of_parents, type_of_selection, k, pc, pm1, pm2, list_x, actual_y):
     # we want to make children on base of a list of trees (parent_trees)
     
     lenght = len(list_of_parents)
@@ -24,7 +24,7 @@ def making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2, list_x,
     
     return children
 
-def making_children0(list_of_parents, type_of_selection, k, pc, pm1, pm2):
+def making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2, list_x, actual_y):
     # we want to make children on base of a list of trees (parent_trees)
     
     lenght = len(list_of_parents)
@@ -40,8 +40,9 @@ def making_children0(list_of_parents, type_of_selection, k, pc, pm1, pm2):
         child1, child2 = cross_over_one_point(parent1, parent2, pc)
         children.append(child1)
         children.append(child2)
-    
+
     mutation_different_value(children, pm1, pm2)
+    Chromosome.all_mse(children, list_x, actual_y)
     
     return children
 
@@ -161,10 +162,41 @@ def mutation_different_value_keep_best(children, pm1, pm2, list_x, actual_y):
                         else: child.chr[z]=0
             
             new_mse = Chromosome._mse(child, list_x, actual_y)
-            if(new_mse>old_mse):
+            child.mse = new_mse
+            if(new_mse>=old_mse):
                 provement = False
-                
+            else:
+                old_mse = new_mse
+                 
 def mutation_different_value(children, pm1, pm2):
+    # pm2<pm1
+
+    term = 9
+    coeff = 10
+    power = 5
+    for child in children:
+        for t in range(term):
+            pm = pm2
+            x = t*(coeff+power)
+            #coeff
+            for i in range(x, coeff+x):
+                r = rnd.random()
+                if(r<=pm):
+                    if(child.chr[i]==0): child.chr[i]=1
+                    else: child.chr[i]=0
+                pm+=0.001
+            
+            x += coeff   
+            pm = pm2 
+            #power
+            for h in range(x, power+x):
+                r = rnd.random()
+                if(r<=pm):
+                    if(child.chr[h]==0): child.chr[h]=1
+                    else: child.chr[h]=0
+                pm+=0.001
+     
+def mutation_different_value_half(children, pm1, pm2):
     # x = (choosed_term-1) * each_term
     term = 9
     coeff = 10
