@@ -50,7 +50,7 @@ def Genetic(input_file_name):
     # population number zero
     print("population number 0\n")
     list_of_parents = Chromosome.all_chromosoms(population_size)
-    parents_average_mse, parents_best_mse, best_parent = Chromosome._mse(list_of_parents, X, Y)
+    parents_average_mse, parents_best_mse, best_parent = Chromosome.all_mse(list_of_parents, X, Y)
     
     # making lists for showing 
     generation_number = []
@@ -77,7 +77,7 @@ def Genetic(input_file_name):
         print(f"population number {i+1}")
         list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2)
         
-        average_mse, best_mse, best_chr = Chromosome._mse(list_of_children, X, Y)
+        average_mse, best_mse, best_chr = Chromosome.all_mse(list_of_children, X, Y)
         list_of_parents = list_of_children
         
         generation_number.append(i)
@@ -114,8 +114,9 @@ def Genetic_to_compare(input_file_name):
         X.append(float(a[0]))
         Y.append(float(a[1]))
         
-    list_of_parents = Chromosome.all_chromosoms(population_size)
-    parents_average_mse, parents_best_mse, best_parent = Chromosome._mse(list_of_parents, X, Y)
+    list_of_parents = Chromosome.all_chromosoms(population_size, X, Y)
+    # parents_average_mse, parents_best_mse, best_parent = Chromosome.all_mse(list_of_parents, X, Y)
+    parents_average_mse, parents_best_mse, best_parent = Chromosome.find_best_mse(list_of_parents)
     
     generation_number = []
     average_mse_of_eachGen = []
@@ -143,9 +144,10 @@ def Genetic_to_compare(input_file_name):
     
         print(f"population number {i+1}")
 
-        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2)
-        
-        average_mse, best_mse, best_chr = Chromosome._mse(list_of_children, X, Y)
+        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2, X, Y)
+        # average_mse, best_mse, best_chr = Chromosome.all_mse(list_of_children, X, Y)
+        average_mse, best_mse, best_chr = Chromosome.find_best_mse(list_of_children)
+
         list_of_parents = list_of_children
         
         generation_number.append(i)

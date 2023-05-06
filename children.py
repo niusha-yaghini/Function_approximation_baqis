@@ -2,7 +2,29 @@ import copy
 import random as rnd
 import Chromosome
 
-def making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2):
+def making_children(list_of_parents, type_of_selection, k, pc, pm1, pm2, list_x, actual_y):
+    # we want to make children on base of a list of trees (parent_trees)
+    
+    lenght = len(list_of_parents)
+    children = []
+    
+    for i in range(int(lenght/2)):
+        
+        if(type_of_selection == "tournoment"):
+            parent1, parent2 = tournament_selection(list_of_parents, k)     
+        elif(type_of_selection == "roulette_wheel"):   
+            parent1, parent2 = roulette_wheel_selection(list_of_parents)        
+
+        child1, child2 = cross_over_one_point(parent1, parent2, pc)
+        children.append(child1)
+        children.append(child2)
+        
+    Chromosome.all_mse(children, list_x, actual_y)
+    mutation_different_value_keep_best(children, pm1, pm2, list_x, actual_y)
+    
+    return children
+
+def making_children0(list_of_parents, type_of_selection, k, pc, pm1, pm2):
     # we want to make children on base of a list of trees (parent_trees)
     
     lenght = len(list_of_parents)
@@ -94,6 +116,54 @@ def replace_terms(paren1, paren2, choosed_term):
     
     return child1, child2        
 
+def mutation_different_value_keep_best(children, pm1, pm2, list_x, actual_y):
+    # x = (choosed_term-1) * each_term
+    term = 9
+    coeff = 10
+    co1 = 5
+    co2 = 5
+    power = 5
+    po1 = 2
+    po2 = 3
+    provement = True
+    for child in children:
+        old_mse = child.mse
+        while(provement):
+            for t in range(term):
+                x = t*(coeff+power)
+                #coeff
+                for i in range(x, co1+x):
+                    r = rnd.random()
+                    if(r<=pm2):
+                        if(child.chr[i]==0): child.chr[i]=1
+                        else: child.chr[i]=0
+                x += co1
+
+                for j in range(x, co2+x):
+                    r = rnd.random()
+                    if(r<=pm1):
+                        if(child.chr[j]==0): child.chr[j]=1
+                        else: bit=0
+                x += co2
+                    
+                #power
+                for h in range(x, po1+x):
+                    r = rnd.random()
+                    if(r<=pm2):
+                        if(child.chr[h]==0): child.chr[h]=1
+                        else: child.chr[h]=0
+                x += po1
+
+                for z in range(x, po2+x):
+                    r = rnd.random()
+                    if(r<=pm1):
+                        if(child.chr[z]==0): child.chr[z]=1
+                        else: child.chr[z]=0
+            
+            new_mse = Chromosome._mse(child, list_x, actual_y)
+            if(new_mse>old_mse):
+                provement = False
+                
 def mutation_different_value(children, pm1, pm2):
     # x = (choosed_term-1) * each_term
     term = 9

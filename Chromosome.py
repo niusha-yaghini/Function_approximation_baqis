@@ -28,7 +28,7 @@ class Chromosome:
 
         return my_chr                
 
-def all_chromosoms(population_size):
+def all_chromosoms(population_size, X, Y):
     # making a list of all random chromosoms (generation 0)
 
     chromosoms = []
@@ -37,22 +37,41 @@ def all_chromosoms(population_size):
         chr._fit()
         # print(chr.chr)
         chromosoms.append(chr)
+    all_mse(chromosoms, X, Y)
+
     return chromosoms
 
-def _mse(chr_list, X, actual_Y):    
+def find_best_mse(chr_list):
     sum_mse = 0
     best_mse = float('inf')
     best_chr = None
     for c in chr_list:
-        predicted_Y = calculator(X, c)
-        c.mse = mean_squared_error(actual_Y, predicted_Y)     
-        # print(c.mse)   
         sum_mse += c.mse
         if (c.mse<best_mse):
             best_mse = c.mse
             best_chr = c
 
     return sum_mse/len(chr_list), best_mse, best_chr
+    
+def all_mse(chr_list, list_x, actual_y):
+    # sum_mse = 0
+    # best_mse = float('inf')
+    # best_chr = None
+    for c in chr_list:
+        c.mse = _mse(c, list_x, actual_y)
+
+        # sum_mse += c.mse
+        # if (c.mse<best_mse):
+        #     best_mse = c.mse
+        #     best_chr = c
+
+    # return sum_mse/len(chr_list), best_mse, best_chr
+
+def _mse(single_chr, list_x, actual_y):
+        
+    predicted_y = calculator(list_x, single_chr)
+    mse = mean_squared_error(actual_y, predicted_y)     
+    return mse
 
 def binatodeci(binary):
     return sum(val*(2**idx) for idx, val in enumerate(reversed(binary)))
