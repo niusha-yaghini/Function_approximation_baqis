@@ -54,18 +54,8 @@ def find_best_mse(chr_list):
     return sum_mse/len(chr_list), best_mse, best_chr
     
 def all_mse(chr_list, list_x, actual_y):
-    # sum_mse = 0
-    # best_mse = float('inf')
-    # best_chr = None
     for c in chr_list:
         c.mse = _mse(c, list_x, actual_y)
-
-        # sum_mse += c.mse
-        # if (c.mse<best_mse):
-        #     best_mse = c.mse
-        #     best_chr = c
-
-    # return sum_mse/len(chr_list), best_mse, best_chr
 
 def _mse(single_chr, list_x, actual_y):
         
@@ -99,10 +89,8 @@ def calculator(list_x, chr):
         str += to_string(coeff_num, power_num)
     
     chr.str = str
-    # print(str)
-
+    
     predicted_y = []
-
     for x in list_x:
         y = 0
         for l in list_c_p:

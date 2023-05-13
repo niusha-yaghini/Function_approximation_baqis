@@ -1,4 +1,4 @@
-mutation with different values
+mutation with different values half
 iteration number 0: mse = 3.106920877572049, generation nums = 125 
 iteration number 1: mse = 11.167071372509536, generation nums = 118 
 iteration number 2: mse = 10.050430309080795, generation nums = 89 
