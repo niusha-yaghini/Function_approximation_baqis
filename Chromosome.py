@@ -28,20 +28,8 @@ class Chromosome:
 
         return my_chr                
 
-def all_chromosoms(population_size, X, Y):
-    # making a list of all random chromosoms (generation 0)
-
-    chromosoms = []
-    for i in range(population_size):
-        chr = Chromosome()
-        chr._fit()
-        # print(chr.chr)
-        chromosoms.append(chr)
-    all_mse(chromosoms, X, Y)
-
-    return chromosoms
-
 def find_best_mse(chr_list):
+    # in this function we take a list of choromosomes and we find the best one in them (based on mse)
     sum_mse = 0
     best_mse = float('inf')
     best_chr = None
@@ -52,21 +40,46 @@ def find_best_mse(chr_list):
             best_chr = c
 
     return sum_mse/len(chr_list), best_mse, best_chr
+
+def all_chromosoms(population_size, X, Y):
+    # making a list of all random chromosoms (generation 0)
+    # and also calculating the mse of them and set it 
+
+    chromosoms = []
+    for i in range(population_size):
+        chr = Chromosome()
+        chr._fit()
+        # print(chr.chr)
+        chromosoms.append(chr)
+    all_mse(chromosoms, X, Y)
+
+    return chromosoms
     
 def all_mse(chr_list, list_x, actual_y):
+    # in this function we take a list of choromosomes and x and y and
+    # for each chromosome we are setting its mse
+    
     for c in chr_list:
         c.mse = _mse(c, list_x, actual_y)
 
 def _mse(single_chr, list_x, actual_y):
+    # in this function we take a single choromosome and we calculate the predicted_y of it,
+    # and we calulate its mse, and return it
         
     predicted_y = calculator(list_x, single_chr)
     mse = mean_squared_error(actual_y, predicted_y)     
     return mse
 
 def binatodeci(binary):
+    # here we take a binary list and we return its decimal
+    
     return sum(val*(2**idx) for idx, val in enumerate(reversed(binary)))
 
 def calculator(list_x, chr):
+    # in this function we take a single choromosome and the list of x,
+    # and we calculate the predicted_y list and return it
+    # and after each time calculating power and coeff we also make the string of them and set it to our choromosome
+    
     # list of tuples (coeff, power)
     list_c_p = []
     str = ''
@@ -101,6 +114,8 @@ def calculator(list_x, chr):
     return predicted_y
 
 def to_string(coeff_num, power_num):
+    # in here we take a coeff and power decimal and return the string show of it
+    
     str = ''
     if(coeff_num==0):
         return str
