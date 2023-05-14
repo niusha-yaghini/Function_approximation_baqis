@@ -3,7 +3,7 @@ import random as rnd
 import Chromosome
 
 
-def making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y, min_mse):
+def making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y, best_sofar_mse):
     # here we make children base on:
     #           choosing parents: type_of_selection
     #           cross over: cross_over_one_point
@@ -29,12 +29,11 @@ def making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_i
 
     mutation_different_value(children, pm_changing, pm_increase_probblity)
     Chromosome.all_mse(children, list_x, actual_y)
-    new_min_mse = finding_best_child(children)
+    child = finding_best_child(children)
     
-    if(new_min_mse<min_mse):
-        mutation_different_value_with_neighbors_singleChr(children, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y)
+    # if(child.mse<best_sofar_mse):
+    mutation_different_value_with_neighbors_singleChr(child, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y)
         
-    
     return children
 
 def tournament_selection(p_chrs, k):
@@ -143,7 +142,7 @@ def mutation_different_value(children, pm_changing, pm_increase_probblity):
                     else: child.chr[h]=0
                 pm += pm_increase_probblity
 
-def mutation_different_value_for_neighbors(child, pm_changing, pm_increase_probblity):
+def mutation_for_neighbors(child, pm_changing, pm_increase_probblity):
     # here we do the mutation on different bits by different chance each bits chance increases by pm_increase_probblity
     # we take one chromosome and do the mutation on a copy of it, and return the copy
 
@@ -175,13 +174,13 @@ def mutation_different_value_for_neighbors(child, pm_changing, pm_increase_probb
             
     return new_child
 
-def make_neighbors_with_mutation(child, pm_changing, pm_increase_probblity, neighbors_amount, list_x, actual_y):
+def make_neighbors(child, pm_changing, pm_increase_probblity, neighbors_amount, list_x, actual_y):
     # in here we make neighbors_amount of neighbors for a single choromosome
     # and also we set the mse of them here
         
     all_neighbors = []
     for i in range(neighbors_amount):
-        neighbor = mutation_different_value_for_neighbors(child, pm_changing, pm_increase_probblity)
+        neighbor = mutation_for_neighbors(child, pm_changing, pm_increase_probblity)
         neighbor.mse = Chromosome._mse(neighbor, list_x, actual_y)
         all_neighbors.append(neighbor)
     return all_neighbors
@@ -195,22 +194,20 @@ def finding_best_child(children):
         if(best_mse>child.mse):
             best_mse = child.mse
             best_child = child
+            
     return best_child
         
 def mutation_different_value_with_neighbors_singleChr(child, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y):
         
-        provement = True
-        flag_first_run = True
+    provement = True
 
-        while(provement):
-            all_neighbors = make_neighbors_with_mutation(child, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y)
-            best_neighbor = finding_best_child(all_neighbors)
-            if(best_neighbor.mse<child.mse):
-                print(f"imporoved!, child = {child.mse}, imporoved = {best_neighbor.mse}")
-                child = best_neighbor
-                flag_first_run = False
-            else:
-                provement = False
-                if(flag_first_run):
-                    child = best_neighbor
-    
+    while(provement):
+        all_neighbors = make_neighbors(child, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y)
+        best_neighbor = finding_best_child(all_neighbors)
+        if(best_neighbor.mse<child.mse):
+            # print(f"imporoved!, child = {child.mse}, imporoved = {best_neighbor.mse}")
+            child.mse = best_neighbor.mse
+            child.chr = best_neighbor.chr
+            child.str = best_neighbor.str
+        else:
+            provement = False

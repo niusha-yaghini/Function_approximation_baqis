@@ -5,13 +5,14 @@ import print_function
 import random as rnd
 import time
 import datetime
+import copy
 
 
-def Termination_condition(min_mse):
-    if(min_mse<0.0001): return True
+def Termination_condition(best_sofar_mse):
+    if(best_sofar_mse<0.0001): return True
     else: return False
 
-def Genetic_to_compare(input_file_name):
+def Genetic_to_compare(input_file_name, iteration_number):
     
     amount_of_no_change = 0
     
@@ -31,32 +32,32 @@ def Genetic_to_compare(input_file_name):
     average_mse_of_eachGen = []
     best_mse_of_eachGen = []
     best_mse_of_all = []
-    best_chromosome = []
-    min_mse = None
+    best_chromosome_of_eachGen = []
+    best_sofar_mse = None
     
 
     generation_number.append(0)
     average_mse_of_eachGen.append(parents_average_mse)
     best_mse_of_eachGen.append(parents_best_mse)
-    min_mse = parents_best_mse
-    best_mse_of_all.append(min_mse)
-    best_chromosome.append(best_parent)
+    best_sofar_mse = parents_best_mse
+    best_mse_of_all.append(best_sofar_mse)
+    best_chromosome_of_eachGen.append(best_parent)
 
     i = 0
     for i in range(max_of_generations):
         
-        if(Termination_condition(min_mse)):
+        if(Termination_condition(best_sofar_mse)):
             break
         
         if(amount_of_no_change>=no_change_limit):
             break
     
-        print(f"generation number {i+1}, best so far mse: {min_mse}, ", end='') 
+        print(f"iteration {iteration_number} generation {i+1}, best so far mse: {best_sofar_mse}, ", end='') 
         e = datetime.datetime.now()
 
         print ("time: %s:%s:%s" % (e.hour, e.minute, e.second))
 
-        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, X, Y, min_mse)
+        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, X, Y, best_sofar_mse)
         average_mse, best_mse, best_chr = Chromosome.find_best_mse(list_of_children)
 
         list_of_parents = list_of_children
@@ -64,29 +65,39 @@ def Genetic_to_compare(input_file_name):
         generation_number.append(i)
         average_mse_of_eachGen.append(average_mse)
         best_mse_of_eachGen.append(best_mse)
-        min_mse = min(best_mse_of_eachGen)
+        best_chromosome_of_eachGen.append(copy.deepcopy(best_chr))
+
+        best_sofar_mse = min(best_mse_of_eachGen)
         
-        if(min_mse == best_mse_of_all[-1]):
+        if(best_sofar_mse == best_mse_of_all[-1]):
             amount_of_no_change += 1
         else:
             amount_of_no_change = 0
-            
-        best_mse_of_all.append(min_mse)
-        best_chromosome.append(best_chr)
 
-    return min_mse, amount_of_no_change, i
+        best_mse_of_all.append(best_sofar_mse)
+            
+        best_chromo = Chromosome.Chromosome()
+        for chromo in best_chromosome_of_eachGen:
+            if chromo.mse==best_sofar_mse:
+                best_chromo.str = chromo.str
+                best_chromo.chr = chromo.chr
+        # print(f"string: {best_chromo.str}, chr: {best_chromo.chr}")
+        if(best_chromo.str==None or best_chromo.chr==None):
+            print("The choromosome is None")
+
+        
+    return best_sofar_mse, amount_of_no_change, i, best_chromo
 
     
 if __name__ == "__main__":
     
     # rnd.seed(1)
     photo_number = 4
-    text_compare_name = 'result7.txt'
+    text_compare_name = 'result9.txt'
 
     population_size = 1000  #size of population (0)
-    max_of_generations = 400
-    iteration_of_genetic = 30
-
+    max_of_generations = 500
+    iteration_of_genetic = 20
 
     # coromosoms = 15 bits / 10 bits = coeffisient and 5 bits = power 
     input_nodes_amount = 100
@@ -102,7 +113,7 @@ if __name__ == "__main__":
     pm2 = 0.01 # the probblity of mutation for high value
     pm_changing = 0.01 # the probblity of mutation that will change and increase for different bits
     pm_increase_probblity = 0.001 # the amount, that is gonna add to pm_changing each time for different bits
-    pm_neighbors_amount = 10 # the amount of neighbors that each time for each chromosome our mutation will create
+    pm_neighbors_amount = 500 # the amount of neighbors that each time for each chromosome our mutation will create
 
 
     # parameters for making the next generation
@@ -114,6 +125,7 @@ if __name__ == "__main__":
 
     result = open(f'{text_compare_name}', 'a')
     result.write(f"mutation with different values (increases probblity = 0.001) and making 10 neighbors each time\n")        
+    result.close()
 
     # get the start time
     st = time.time()
@@ -121,13 +133,24 @@ if __name__ == "__main__":
     best_mses = []
     sum = 0
     for i in range(iteration_of_genetic):
+        iteration_st = time.time()
+        result = open(f'{text_compare_name}', 'a')
+        
         print(f"iteration number {i}: ")
-        mse, no_change, gen_num = Genetic_to_compare(input_file_name)
+        mse, no_change, gen_num, chromo = Genetic_to_compare(input_file_name, i)
         print(f"mse = {mse}, generation nums = {gen_num} \n")
         sum += mse
         best_mses.append(mse)
         result.write(f"iteration number {i}: ")        
         result.write(f"mse = {mse}, generation nums = {gen_num} \n")
+        result.write(f"string: {chromo.str}\n chr: {chromo.chr}\n")
+        iteration_et = time.time()
+        iteration_elapsed_time = iteration_et - iteration_st
+        result.write(f"Execution time of iteration: {iteration_elapsed_time} seconds\n \n")
+        
+        result.close()
+
+    result = open(f'{text_compare_name}', 'a')
         
     # get the end time
     et = time.time()
@@ -138,11 +161,14 @@ if __name__ == "__main__":
     result.write(f"the average mse of all: {avg} \n")
     # result.write('Execution time:', elapsed_time, 'seconds')
 
+    elapsed_time = et - st
+    print('Execution time:', elapsed_time, 'seconds')
+    
+    result.write('Execution time of all:', elapsed_time, 'seconds')
+
     result.close()
     
     # get the execution time    
-    elapsed_time = et - st
-    print('Execution time:', elapsed_time, 'seconds')
 
     # for now the new generation is the children
 

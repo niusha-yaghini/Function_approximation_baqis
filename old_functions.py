@@ -372,3 +372,20 @@
 #                         child = best_neighbor
     
 
+# def mutation_different_value_with_neighbors_singleChr(child, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y):
+        
+#     provement = True
+#     # flag_first_run = True
+
+#     while(provement):
+#         all_neighbors = make_neighbors(child, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y)
+#         best_neighbor = finding_best_child(all_neighbors)
+#         if(best_neighbor.mse<child.mse):
+#             print(f"imporoved!, child = {child.mse}, imporoved = {best_neighbor.mse}")
+#             child = copy.deepcopy(best_neighbor)            
+#             # flag_first_run = False
+#         else:
+#             provement = False
+#             # if(flag_first_run):
+#             #     child = best_neighbor
+
