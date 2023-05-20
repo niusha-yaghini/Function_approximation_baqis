@@ -164,7 +164,7 @@ if __name__ == "__main__":
     elapsed_time = et - st
     print('Execution time:', elapsed_time, 'seconds')
     
-    result.write('Execution time of all:', elapsed_time, 'seconds')
+    result.write(f'Execution time of all: {elapsed_time} seconds')
 
     result.close()
     

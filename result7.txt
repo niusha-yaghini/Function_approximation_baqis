@@ -1,4 +1,13 @@
-mutation with different values (increases probblity = 0.001) and making 10 neighbors each time
+choosing parents method: tournoment
+cross over: one point
+mutation: different values (increases probblity = 0.001)
+          500 neighbors on the best chromosome of each generation
+next generation: 100% children
+
+pop-zero: 1000
+max generation: 500 
+         limit: 50
+iteration: 15
 
 iteration number 0: mse = 0.5771529959740963, generation nums = 50 
 string: -(2.5x^-0.5)+(7.100000000000001x^-0.25)+(4.5x^1.25)-(2.799999999999997x^1.25)+(13.5x^0.25)-(14.899999999999999x^0.75)-(2.6000000000000014x^0.5)+(4.300000000000004x^1.5)-(5.699999999999996x^-0.25)
@@ -52,3 +61,6 @@ chr: [1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1,
 
 iteration number 14: mse = 1.2066110569737203, generation nums = 50 
 string: None, chr: None
+
+the average mse of all: 2947.0629912433174 
+the best mse of all: 41.01237826815383, generation nums = 227
