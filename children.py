@@ -3,7 +3,7 @@ import random as rnd
 import Chromosome
 
 
-def making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y, best_sofar_mse):
+def making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y, best_sofar_mse, result, gen_num):
     # here we make children base on:
     #           choosing parents: type_of_selection
     #           cross over: cross_over_one_point
@@ -30,9 +30,12 @@ def making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_i
     mutation_different_value(children, pm_changing, pm_increase_probblity)
     Chromosome.all_mse(children, list_x, actual_y)
     child = finding_best_child(children)
+    result.write(f"best child mse before mutation, generation {gen_num}: {child.mse}\n")        
+
     
     # if(child.mse<best_sofar_mse):
     mutation_different_value_with_neighbors_singleChr(child, pm_changing, pm_increase_probblity, pm_neighbors_amount, list_x, actual_y)
+    result.write(f"best child mse after mutation, generation {gen_num}: {child.mse}\n")        
         
     return children
 

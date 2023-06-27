@@ -27,7 +27,8 @@ def Genetic_to_compare(input_file_name, iteration_number):
             
     list_of_parents = Chromosome.all_chromosoms(population_size, X, Y)
     parents_average_mse, parents_best_mse, best_parent = Chromosome.find_best_mse(list_of_parents)
-    
+    result.write(f"best mse so far, generation 0: {parents_best_mse}\n")        
+
     generation_number = []
     average_mse_of_eachGen = []
     best_mse_of_eachGen = []
@@ -35,7 +36,6 @@ def Genetic_to_compare(input_file_name, iteration_number):
     best_chromosome_of_eachGen = []
     best_sofar_mse = None
     
-
     generation_number.append(0)
     average_mse_of_eachGen.append(parents_average_mse)
     best_mse_of_eachGen.append(parents_best_mse)
@@ -57,7 +57,7 @@ def Genetic_to_compare(input_file_name, iteration_number):
 
         print ("time: %s:%s:%s" % (e.hour, e.minute, e.second))
 
-        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, X, Y, best_sofar_mse)
+        list_of_children = children.making_children(list_of_parents, type_of_selection, k, pc, pm_changing, pm_increase_probblity, pm_neighbors_amount, X, Y, best_sofar_mse, result, i)
         average_mse, best_mse, best_chr = Chromosome.find_best_mse(list_of_children)
 
         list_of_parents = list_of_children
@@ -86,18 +86,18 @@ def Genetic_to_compare(input_file_name, iteration_number):
             print("The choromosome is None")
 
         
-    return best_sofar_mse, amount_of_no_change, i, best_chromo
+    return best_sofar_mse, i, best_chromo
 
     
 if __name__ == "__main__":
     
-    # rnd.seed(1)
+    rnd.seed(1)
     photo_number = 4
-    text_compare_name = 'result9.txt'
+    text_compare_name = 'result10.txt'
 
     population_size = 1000  #size of population (0)
     max_of_generations = 500
-    iteration_of_genetic = 20
+    iteration_of_genetic = 1
 
     # coromosoms = 15 bits / 10 bits = coeffisient and 5 bits = power 
     input_nodes_amount = 100
@@ -115,13 +115,11 @@ if __name__ == "__main__":
     pm_increase_probblity = 0.001 # the amount, that is gonna add to pm_changing each time for different bits
     pm_neighbors_amount = 500 # the amount of neighbors that each time for each chromosome our mutation will create
 
-
     # parameters for making the next generation
     parents_percent_of_next_generation = 10
     children_percent_of_next_generation = 90
     
     input_file_name = 'in_out.txt'
-        
 
     result = open(f'{text_compare_name}', 'a')
     result.write(f"mutation with different values (increases probblity = 0.001) and making 10 neighbors each time\n")        
@@ -137,7 +135,7 @@ if __name__ == "__main__":
         result = open(f'{text_compare_name}', 'a')
         
         print(f"iteration number {i}: ")
-        mse, no_change, gen_num, chromo = Genetic_to_compare(input_file_name, i)
+        mse, gen_num, chromo = Genetic_to_compare(input_file_name, i)
         print(f"mse = {mse}, generation nums = {gen_num} \n")
         sum += mse
         best_mses.append(mse)

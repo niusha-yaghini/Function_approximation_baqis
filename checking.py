@@ -1,13 +1,19 @@
-import time
+import matplotlib.pyplot as plt
+import numpy as np
+from votes import wide as df
+import seaborn as sns
 
-st = time.time()
+sns.set()
+plt.figure()
 
-x = [1, 2, 3]
-# print(len(x))
-for i in range(1000):
-    x.append(i)
+ax = sns.barplot(data=df, x="year", y="seats", hue="party", palette=['blue', 'red', 'yellow', 'grey'], saturation=0.6)
 
-et = time.time()
-# get the execution time
-elapsed_time = et - st
-print('Execution time:', elapsed_time, 'seconds')
+ax.set_title('UK election results')
+ax.grid(color='#cccccc')
+ax.set_ylabel('Seats')
+ax.set_xlabel(None)
+ax.set_xticklabels(df["year"].unique().astype(str), rotation='vertical')
+
+plt.show()
+
+print()
