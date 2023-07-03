@@ -150,14 +150,13 @@ if __name__ == "__main__":
 
     result = open(f'{text_compare_name}', 'a')
         
-    # get the end time
-    et = time.time()
-
     all_min = min(best_mses)
     avg = sum/iteration_of_genetic
     result.write(f"the best mse of all: {all_min} \n")
     result.write(f"the average mse of all: {avg} \n")
-    # result.write('Execution time:', elapsed_time, 'seconds')
+
+    # get the end time
+    et = time.time()
 
     elapsed_time = et - st
     print('Execution time:', elapsed_time, 'seconds')
